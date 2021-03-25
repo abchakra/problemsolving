@@ -9,81 +9,85 @@ import java.util.stream.Stream;
 
 class Smoothie {
 
-	private static final Map<String, Set<String>> smoothies = new HashMap<String, Set<String>>();
-	static {
 
-		TreeSet<String> CLASSIC = Stream.of("strawberry", "banana", "pineapple", "mango", "peach", "honey")
-				.collect(Collectors.toCollection(TreeSet::new));
-		TreeSet<String> FREEZIE = Stream.of("blackberry", "blueberry", "black currant", "grape juice", "frozen yogurt")
-				.collect(Collectors.toCollection(TreeSet::new));
-		TreeSet<String> GREENIE = Stream.of("green apple", "lime", "avocado", "spinach", "ice", "apple juice")
-				.collect(Collectors.toCollection(TreeSet::new));
-		TreeSet<String> JUST_DESSERTS = Stream.of("banana", "ice cream", "chocolate", "peanut", "cherry")
-				.collect(Collectors.toCollection(TreeSet::new));
-		smoothies.put("classic", CLASSIC);
-		smoothies.put("freezie", FREEZIE);
-		smoothies.put("greenie", GREENIE);
-		smoothies.put("justdesserts", JUST_DESSERTS);
-	}
+  public static String ingredients(String order) {
 
-	public static String ingredients(String order) {
-		String finalSmoothieIngredients = null;
+    Map<String, Set<String>> smoothies = new HashMap<String, Set<String>>();
+    Set<String> CLASSIC = Stream.of("strawberry", "banana", "pineapple", "mango", "peach", "honey")
+        .collect(Collectors.toCollection(TreeSet::new));
+    Set<String> FREEZIE =
+        Stream.of("blackberry", "blueberry", "black currant", "grape juice", "frozen yogurt")
+            .collect(Collectors.toCollection(TreeSet::new));
+    Set<String> GREENIE =
+        Stream.of("green apple", "lime", "avocado", "spinach", "ice", "apple juice")
+            .collect(Collectors.toCollection(TreeSet::new));
+    Set<String> JUST_DESSERTS = Stream.of("banana", "ice cream", "chocolate", "peanut", "cherry")
+        .collect(Collectors.toCollection(TreeSet::new));
+    smoothies.put("classic", CLASSIC);
+    smoothies.put("freezie", FREEZIE);
+    smoothies.put("greenie", GREENIE);
+    smoothies.put("justdesserts", JUST_DESSERTS);
 
-		
-		if(order==null) {
-			throw new IllegalArgumentException();
-		}
-		String[] items = order.trim().split(",");
-		
 
-		// First item is the smoothie name
+    String finalSmoothieIngredients = null;
 
-		int inputItemsLength = items.length;
-		if (inputItemsLength > 0) {
-			Set<String> originalSmoothieIngredients = smoothies.get(items[0].trim().toLowerCase());
+    if (order == null || order.trim().isEmpty()) {
+      throw new IllegalArgumentException();
+    }
+    String[] items = order.trim().split(",");
 
-			if (originalSmoothieIngredients == null) {
-				throw new IllegalArgumentException();
-			} else {
-				if (inputItemsLength == 1) {
-					finalSmoothieIngredients = getStringForSet(originalSmoothieIngredients);
-				} else {
-					Set<String> copySmoothieIngredients = cloneSet(originalSmoothieIngredients);
-					for (int i = 1; i < inputItemsLength; i++) {
 
-						String entry = items[i].trim();
-						// items to be removed as allergic
-						if (entry.contains("-")) {
-							String allegricEntry = entry.substring(1, entry.length());
-							copySmoothieIngredients.remove(allegricEntry.trim());
+    // First item is the smoothie name
 
-						} else {
-							// additional ingredient which is not part of original ingredients
-							if (!originalSmoothieIngredients.contains(entry)) {
-								throw new IllegalArgumentException();
-							}
-						}
+    int inputItemsLength = items.length;
+    if (inputItemsLength > 0) {
+      Set<String> originalSmoothieIngredients = smoothies.get(items[0].trim().toLowerCase());
 
-					}
-					finalSmoothieIngredients = getStringForSet(copySmoothieIngredients);
-				}
-			}
-		}
+      if (originalSmoothieIngredients == null) {
+        throw new IllegalArgumentException();
+      }
 
-		return finalSmoothieIngredients;
-	}
 
-	private static Set<String> cloneSet(Set<String> originalSet) {
+      if (inputItemsLength == 1) {
+        finalSmoothieIngredients = getStringForSet(originalSmoothieIngredients);
+      } else {
+        // Set<String> copySmoothieIngredients = cloneSet(originalSmoothieIngredients);
+        for (int i = 1; i < inputItemsLength; i++) {
 
-		Set<String> copySet = new TreeSet<String>();
-		for (String string : originalSet) {
-			copySet.add(string);
-		}
-		return copySet;
-	}
+          String entry = items[i].trim();
+          // items to be removed as allergic
+          if (entry.contains("-")) {
+            String allegricEntry = entry.substring(1, entry.length());
+            originalSmoothieIngredients.remove(allegricEntry.trim());
 
-	private static String getStringForSet(Set<String> setOfString) {
-		String joined = String.join(",", setOfString);
-		return joined;
-	}
+          } else {
+            // additional ingredient which is not part of original ingredients
+            if (!originalSmoothieIngredients.contains(entry)) {
+              throw new IllegalArgumentException();
+            }
+          }
+
+        }
+        finalSmoothieIngredients = getStringForSet(originalSmoothieIngredients);
+      }
+    }
+    return finalSmoothieIngredients;
+
+
+
+  }
+
+  private static Set<String> cloneSet(Set<String> originalSet) {
+
+    Set<String> copySet = new TreeSet<String>();
+    for (String string : originalSet) {
+      copySet.add(string);
+    }
+    return copySet;
+  }
+
+  private static String getStringForSet(Set<String> setOfString) {
+    String joined = String.join(",", setOfString);
+    return joined;
+  }
 }
