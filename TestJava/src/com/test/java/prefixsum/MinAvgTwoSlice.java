@@ -55,7 +55,12 @@ public class MinAvgTwoSlice {
     return result;
   }
 
-  public int solution3(int[] A) {
+
+  // A non-empty array A consisting of N integers is given. A pair of integers (P, Q), such that 0 ≤
+  // P < Q < N, is called a slice of array A (notice that the slice contains at least two elements).
+  // The average of a slice (P, Q) is the sum of A[P] + A[P + 1] + ... + A[Q] divided by the length
+  // of the slice. To be precise, the average equals (A[P] + A[P + 1] + ... + A[Q]) / (Q − P + 1).
+  public int solution(int[] A) {
     // write your code in Java SE 8
 
     float avg = 0f;
@@ -90,7 +95,8 @@ public class MinAvgTwoSlice {
 
   }
 
-  public int solution(int[] A) {
+  // https://codesays.com/2014/solution-to-min-avg-two-slice-by-codility/
+  public int solution1(int[] A) {
 
     // min slice len will always be less than 4 ,
     // imagine a slice of len 4 which can be divided in two slices of

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test thread-count="5" name="Test">
+    <classes>
+      <class name="com.test.java.DominatorTest"/>
+      <class name="com.test.java.EquiLeaderTests"/>
+      <class name="com.test.java.FrogRiverOneTest"/>
+      <class name="com.test.java.TapeEquilibriumTest"/>
+      <class name="com.test.java.SmoothieTest"/>
+      <class name="com.test.java.DistinctTest"/>
+      <class name="com.test.java.GenomicRangeQueryTest"/>
+      <class name="com.test.java.DiskSpaceTest"/>
+      <class name="com.test.java.MaxCountersTest"/>
+      <class name="com.test.java.ArrayRoationTest"/>
+      <class name="com.test.java.CountDivTest"/>
+      <class name="com.test.java.OddOccurrencesInArrayTest"/>
+      <class name="com.test.java.MinAvgTwoSliceTest"/>
+      <class name="com.test.java.PermMissingElemTest"/>
+      <class name="com.test.java.FrogJmpTest"/>
+      <class name="com.test.java.PermCheckTest"/>
+      <class name="com.test.java.BinaryGapTest"/>
+      <class name="com.test.java.MissingIntegerTest"/>
+      <class name="com.test.java.MaxProductOfThreeTest"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

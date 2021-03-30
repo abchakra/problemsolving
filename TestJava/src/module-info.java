@@ -1,3 +1,0 @@
-module TestJava {
-	requires junit;
-}
